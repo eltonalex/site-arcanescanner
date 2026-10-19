@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade — Arcane Scanner</title>
+<meta name="description" content="Política de Privacidade do aplicativo Arcane Scanner: quais dados são usados, onde ficam guardados e como entrar em contato.">
+<meta name="theme-color" content="#fff6e9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%237c5cff'/%3E%3Crect x='20' y='12' width='24' height='38' rx='5' fill='%23fff' transform='rotate(-8 32 31)'/%3E%3Ccircle cx='46' cy='16' r='7' fill='%23ffc94d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff6e9; --ink: #2b2140; --muted: #5e5573; --violet: #6a45f5;
+    --pink: #ff6fa8; --yellow: #ffc94d; --mint: #3fd1a6; --sky: #4db8ff; --white: #fff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: "Nunito", system-ui, sans-serif; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .blob { position: fixed; border-radius: 50%; filter: blur(60px); opacity: .35; z-index: -1; pointer-events: none; }
+  .b1 { width: 380px; height: 380px; background: var(--pink); top: -140px; left: -160px; }
+  .b2 { width: 340px; height: 340px; background: var(--sky); bottom: -140px; right: -140px; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--ink); text-decoration: none; }
+  .brand svg { width: 38px; height: 38px; flex: none; }
+  .lang { display: flex; background: var(--white); border: 2.5px solid var(--ink); border-radius: 999px; overflow: hidden; box-shadow: 3px 3px 0 var(--ink); flex: none; }
+  .lang button { background: none; border: 0; color: var(--ink); font: 700 .85rem "Fredoka", sans-serif; padding: 6px 14px; cursor: pointer; }
+  .lang button.on { background: var(--yellow); }
+
+  .title { padding: 28px 0 24px; }
+  .badge { display: inline-block; background: var(--white); border: 2.5px solid var(--ink); border-radius: 999px; padding: 4px 14px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: .9rem; box-shadow: 3px 3px 0 var(--ink); transform: rotate(-2deg); margin-bottom: 18px; }
+  h1 { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.1; }
+  .updated { color: var(--muted); margin-top: 8px; }
+
+  .summary { background: var(--violet); color: var(--white); border: 3px solid var(--ink); border-radius: 24px; box-shadow: 6px 6px 0 var(--ink); padding: 26px; margin: 8px 0 32px; }
+  .summary h2 { font-family: "Fredoka", sans-serif; font-size: 1.35rem; margin-bottom: 10px; }
+  .summary ul { list-style: none; display: grid; gap: 8px; }
+  .summary li { padding-left: 30px; position: relative; }
+  .summary li::before { content: "✦"; position: absolute; left: 4px; color: var(--yellow); }
+
+  .doc { background: var(--white); border: 2.5px solid var(--ink); border-radius: 24px; box-shadow: 6px 6px 0 var(--ink); padding: 30px 26px; margin-bottom: 40px; }
+  .doc h2 { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3rem; margin: 30px 0 8px; display: flex; align-items: center; gap: 10px; }
+  .doc h2:first-child { margin-top: 0; }
+  .doc h2 .n { flex: none; display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; border: 2px solid var(--ink); background: var(--yellow); font-size: .95rem; }
+  .doc p, .doc li { color: #3d3354; }
+  .doc p + p { margin-top: 10px; }
+  .doc ul { margin: 10px 0 0 22px; display: grid; gap: 6px; }
+  .doc strong { color: var(--ink); }
+  .doc a { color: var(--violet); font-weight: 700; }
+
+  .back { display: inline-block; margin-bottom: 24px; color: var(--ink); font-family: "Fredoka", sans-serif; font-weight: 600; text-decoration: none; background: var(--white); border: 2.5px solid var(--ink); border-radius: 14px; padding: 8px 16px; box-shadow: 3px 3px 0 var(--ink); transition: transform .15s, box-shadow .15s; }
+  .back:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+
+  footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 0 0 40px; }
+  footer p + p { margin-top: 8px; font-size: .78rem; }
+
+  [data-en] { display: none; }
+  html[lang="en"] [data-pt] { display: none; }
+  html[lang="en"] [data-en] { display: revert; }
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#7c5cff" stroke="#2b2140" stroke-width="3"/><rect x="20" y="13" width="24" height="36" rx="5" fill="#fff" stroke="#2b2140" stroke-width="2.5" transform="rotate(-8 32 31)"/><circle cx="47" cy="16" r="7" fill="#ffc94d" stroke="#2b2140" stroke-width="2.5"/></svg>
+      Arcane Scanner
+    </a>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button id="btn-pt" class="on" onclick="setLang('pt-BR')">PT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </header>
+
+  <!-- ===================== PORTUGUÊS ===================== -->
+  <div data-pt>
+    <section class="title">
+      <span class="badge">🔒 Privacidade</span>
+      <h1>Política de Privacidade</h1>
+      <p class="updated">Última atualização: 19 de outubro de 2026</p>
+    </section>
+
+    <section class="summary">
+      <h2>Resumindo em poucas palavras</h2>
+      <ul>
+        <li>Você não precisa criar conta para usar o app.</li>
+        <li>Sua coleção fica salva <strong>somente no seu celular</strong>. Nós não temos servidor que guarde seus dados.</li>
+        <li>As fotos das cartas são usadas só para identificá-las e não são enviadas para nós.</li>
+        <li>O app não tem anúncios nem ferramentas de rastreamento ou análise de uso.</li>
+        <li>A identificação por IA é opcional e usa a chave de API que <strong>você</strong> cadastrar.</li>
+      </ul>
+    </section>
+
+    <article class="doc">
+      <h2><span class="n">1</span> Quem somos</h2>
+      <p>O Arcane Scanner é um aplicativo independente para escanear e organizar coleções de cartas de Magic: The Gathering. Esta política explica quais informações o app usa, para quê e quais são os seus direitos, de acordo com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+      <p>Para qualquer assunto sobre privacidade, fale com a gente pelo e-mail <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a>.</p>
+
+      <h2><span class="n">2</span> Dados que ficam no seu aparelho</h2>
+      <p>As informações abaixo são armazenadas apenas no seu celular e nunca são enviadas para nós:</p>
+      <ul>
+        <li><strong>Sua coleção:</strong> cartas, quantidades, edição, idioma, condição, se é foil e o preço registrado no momento em que a carta foi adicionada.</li>
+        <li><strong>Preferências do app:</strong> modo de agrupamento da coleção, modo rápido e o provedor de IA escolhido.</li>
+        <li><strong>Chaves de API de IA</strong> (se você cadastrar alguma): guardadas no armazenamento seguro e criptografado do sistema.</li>
+        <li><strong>Fotos temporárias</strong> tiradas para identificar as cartas.</li>
+      </ul>
+      <p>Se você desinstalar o app ou limpar os dados dele, essas informações são apagadas. Recomendamos usar a função de <strong>exportar</strong> (CSV ou JSON) para guardar uma cópia da sua coleção.</p>
+
+      <h2><span class="n">3</span> Câmera e galeria</h2>
+      <p>O app pede acesso à <strong>câmera</strong> para fotografar as cartas e pode abrir a <strong>galeria</strong> quando você escolhe uma imagem já existente. O reconhecimento de texto (OCR) acontece no próprio aparelho, usando o Google ML Kit. Só são usadas as imagens que você captura ou seleciona, e apenas para identificar as cartas.</p>
+
+      <h2><span class="n">4</span> Serviços externos que o app acessa</h2>
+      <p>Para funcionar, o app se comunica diretamente com estes serviços. Como em qualquer acesso à internet, eles recebem informações técnicas como o endereço IP do seu aparelho:</p>
+      <ul>
+        <li><strong>Scryfall</strong> (api.scryfall.com): base de dados pública de cartas. O app envia apenas os dados da carta procurada, como nome, código da edição e número de colecionador, e baixa as imagens e preços das cartas. Política de privacidade: <a href="https://scryfall.com/docs/privacy" target="_blank" rel="noopener">scryfall.com/docs/privacy</a>.</li>
+        <li><strong>Provedores de IA (opcional):</strong> se você ativar a identificação por IA e cadastrar uma chave de API própria, a foto da carta é enviada ao provedor que você escolheu — <strong>OpenAI</strong>, <strong>Google Gemini</strong> ou <strong>Anthropic</strong> — somente quando o reconhecimento no aparelho não for suficiente. Esse envio usa a sua conta nesse provedor e segue a política de privacidade dele. Se você não cadastrar nenhuma chave, nenhuma imagem é enviada a provedores de IA.</li>
+      </ul>
+
+      <h2><span class="n">5</span> O que nós não fazemos</h2>
+      <ul>
+        <li>Não pedimos nome, e-mail, telefone ou qualquer cadastro para usar o app.</li>
+        <li>Não vendemos, alugamos nem compartilhamos dados pessoais.</li>
+        <li>Não usamos anúncios, ferramentas de análise de uso ou rastreamento.</li>
+        <li>Não acessamos sua localização, seus contatos ou outros arquivos do aparelho.</li>
+      </ul>
+
+      <h2><span class="n">6</span> Seus direitos</h2>
+      <p>Pela LGPD, você pode pedir informações sobre o tratamento dos seus dados, correção, eliminação e revogação de consentimento, entre outros direitos. Como os dados do app ficam no seu próprio aparelho, você tem controle total sobre eles: pode editar ou apagar cartas, exportar a coleção, remover as chaves de API nas configurações ou desinstalar o app a qualquer momento. Para dúvidas ou pedidos, escreva para <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a>.</p>
+
+      <h2><span class="n">7</span> Crianças</h2>
+      <p>O app não é direcionado a menores de 13 anos e não coleta intencionalmente dados de crianças. Se você acredita que uma criança nos enviou informações pessoais, entre em contato para que possamos apagá-las.</p>
+
+      <h2><span class="n">8</span> Mudanças nesta política</h2>
+      <p>Esta política pode ser atualizada quando o app ganhar novos recursos — por exemplo, um plano Pro com assinatura ou sincronização da coleção na nuvem. Quando isso acontecer, publicaremos a nova versão nesta página com a data atualizada e, se a mudança for importante, avisaremos dentro do app.</p>
+
+      <h2><span class="n">9</span> Contato</h2>
+      <p>E-mail: <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a><br>Site: <a href="https://arcanescanner.com">arcanescanner.com</a></p>
+    </article>
+  </div>
+
+  <!-- ===================== ENGLISH ===================== -->
+  <div data-en>
+    <section class="title">
+      <span class="badge">🔒 Privacy</span>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: October 19, 2026</p>
+    </section>
+
+    <section class="summary">
+      <h2>The short version</h2>
+      <ul>
+        <li>You don't need an account to use the app.</li>
+        <li>Your collection is stored <strong>only on your phone</strong>. We don't run a server that keeps your data.</li>
+        <li>Card photos are used only to identify cards and are never sent to us.</li>
+        <li>The app has no ads and no tracking or usage analytics tools.</li>
+        <li>AI identification is optional and uses the API key that <strong>you</strong> provide.</li>
+      </ul>
+    </section>
+
+    <article class="doc">
+      <h2><span class="n">1</span> Who we are</h2>
+      <p>Arcane Scanner is an independent app for scanning and organizing Magic: The Gathering card collections. This policy explains what information the app uses, why, and what your rights are, including under Brazil's General Data Protection Law (LGPD — Law No. 13,709/2018).</p>
+      <p>For any privacy matter, contact us at <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a>.</p>
+
+      <h2><span class="n">2</span> Data stored on your device</h2>
+      <p>The information below is stored only on your phone and is never sent to us:</p>
+      <ul>
+        <li><strong>Your collection:</strong> cards, quantities, set, language, condition, foil status and the price recorded when the card was added.</li>
+        <li><strong>App preferences:</strong> collection grouping mode, quick mode and the selected AI provider.</li>
+        <li><strong>AI API keys</strong> (if you add any): kept in the system's secure, encrypted storage.</li>
+        <li><strong>Temporary photos</strong> taken to identify cards.</li>
+      </ul>
+      <p>If you uninstall the app or clear its data, this information is deleted. We recommend using the <strong>export</strong> feature (CSV or JSON) to keep a copy of your collection.</p>
+
+      <h2><span class="n">3</span> Camera and gallery</h2>
+      <p>The app asks for <strong>camera</strong> access to photograph cards and may open your <strong>gallery</strong> when you choose an existing image. Text recognition (OCR) runs on the device itself, using Google ML Kit. Only the images you capture or select are used, and only to identify cards.</p>
+
+      <h2><span class="n">4</span> External services the app connects to</h2>
+      <p>To work, the app talks directly to these services. As with any internet request, they receive technical information such as your device's IP address:</p>
+      <ul>
+        <li><strong>Scryfall</strong> (api.scryfall.com): a public card database. The app sends only the details of the card being looked up, such as name, set code and collector number, and downloads card images and prices. Privacy policy: <a href="https://scryfall.com/docs/privacy" target="_blank" rel="noopener">scryfall.com/docs/privacy</a>.</li>
+        <li><strong>AI providers (optional):</strong> if you turn on AI identification and add your own API key, the card photo is sent to the provider you chose — <strong>OpenAI</strong>, <strong>Google Gemini</strong> or <strong>Anthropic</strong> — only when on-device recognition isn't enough. This uses your own account with that provider and follows its privacy policy. If you don't add a key, no images are sent to AI providers.</li>
+      </ul>
+
+      <h2><span class="n">5</span> What we don't do</h2>
+      <ul>
+        <li>We don't ask for your name, email, phone number or any sign-up to use the app.</li>
+        <li>We don't sell, rent or share personal data.</li>
+        <li>We don't use ads, usage analytics or tracking tools.</li>
+        <li>We don't access your location, contacts or other files on your device.</li>
+      </ul>
+
+      <h2><span class="n">6</span> Your rights</h2>
+      <p>You may request information about how your data is processed, as well as correction, deletion and withdrawal of consent, among other rights. Since the app's data lives on your own device, you are fully in control: you can edit or delete cards, export your collection, remove API keys in settings, or uninstall the app at any time. For questions or requests, write to <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a>.</p>
+
+      <h2><span class="n">7</span> Children</h2>
+      <p>The app is not directed at children under 13 and does not knowingly collect data from children. If you believe a child has sent us personal information, contact us so we can delete it.</p>
+
+      <h2><span class="n">8</span> Changes to this policy</h2>
+      <p>This policy may be updated as the app gains new features — for example, a Pro subscription plan or cloud sync for your collection. When that happens, we'll publish the new version on this page with an updated date and, if the change is significant, let you know inside the app.</p>
+
+      <h2><span class="n">9</span> Contact</h2>
+      <p>Email: <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a><br>Website: <a href="https://arcanescanner.com">arcanescanner.com</a></p>
+    </article>
+  </div>
+
+  <a class="back" href="/"><span data-pt>← Voltar ao início</span><span data-en>← Back to home</span></a>
+
+  <footer>
+    <p>© <span id="year">2026</span> Arcane Scanner</p>
+    <p data-pt>O Arcane Scanner é um aplicativo independente e não é afiliado, endossado ou patrocinado pela Wizards of the Coast. Magic: The Gathering é marca registrada da Wizards of the Coast LLC.</p>
+    <p data-en>Arcane Scanner is an independent app and is not affiliated with, endorsed or sponsored by Wizards of the Coast. Magic: The Gathering is a trademark of Wizards of the Coast LLC.</p>
+  </footer>
+</div>
+
+<script>
+  function setLang(l) {
+    document.documentElement.lang = l;
+    document.getElementById('btn-pt').classList.toggle('on', l === 'pt-BR');
+    document.getElementById('btn-en').classList.toggle('on', l === 'en');
+    document.title = l === 'en' ? 'Privacy Policy — Arcane Scanner' : 'Política de Privacidade — Arcane Scanner';
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  }
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  if (saved) setLang(saved);
+  else if (!(navigator.language || '').toLowerCase().startsWith('pt')) setLang('en');
+</script>
+</body>
+</html>

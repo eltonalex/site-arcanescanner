@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcane Scanner — Em breve</title>
+<meta name="description" content="Arcane Scanner: escaneie e organize sua coleção de cartas de Magic: The Gathering pelo celular. Em breve no Google Play.">
+<meta property="og:title" content="Arcane Scanner — Em breve">
+<meta property="og:description" content="Escaneie e organize sua coleção de cartas de Magic pelo celular. Em breve no Google Play.">
+<meta property="og:url" content="https://arcanescanner.com">
+<meta name="theme-color" content="#fff6e9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%237c5cff'/%3E%3Crect x='20' y='12' width='24' height='38' rx='5' fill='%23fff' transform='rotate(-8 32 31)'/%3E%3Ccircle cx='46' cy='16' r='7' fill='%23ffc94d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff6e9;
+    --ink: #2b2140;
+    --muted: #6b6280;
+    --violet: #7c5cff;
+    --pink: #ff6fa8;
+    --yellow: #ffc94d;
+    --mint: #3fd1a6;
+    --sky: #4db8ff;
+    --orange: #ff8a4c;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Nunito", system-ui, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* bolhas de fundo */
+  .blob { position: fixed; border-radius: 50%; filter: blur(60px); opacity: .45; z-index: -1; pointer-events: none; }
+  .b1 { width: 420px; height: 420px; background: var(--pink); top: -120px; left: -140px; }
+  .b2 { width: 380px; height: 380px; background: var(--sky); top: 30%; right: -160px; }
+  .b3 { width: 360px; height: 360px; background: var(--yellow); bottom: -140px; left: 20%; }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+  header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+  .brand svg { width: 40px; height: 40px; transition: transform .3s; }
+  .brand:hover svg { transform: rotate(-12deg) scale(1.08); }
+  .lang { display: flex; background: var(--white); border: 2.5px solid var(--ink); border-radius: 999px; overflow: hidden; box-shadow: 3px 3px 0 var(--ink); }
+  .lang button { background: none; border: 0; color: var(--ink); font: 700 .85rem "Fredoka", sans-serif; padding: 6px 14px; cursor: pointer; }
+  .lang button.on { background: var(--yellow); }
+
+  .hero { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 32px; padding: 48px 0 72px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 2.5px solid var(--ink); border-radius: 999px; padding: 6px 16px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: .92rem; box-shadow: 3px 3px 0 var(--ink); margin-bottom: 22px; transform: rotate(-2deg); }
+  .badge .tool { display: inline-block; animation: wiggle 1.6s ease-in-out infinite; }
+  @keyframes wiggle { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-18deg); } 75% { transform: rotate(18deg); } }
+  h1 { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: clamp(2.6rem, 8vw, 4.4rem); line-height: 1.02; letter-spacing: -.01em; }
+  h1 .hl { color: var(--violet); position: relative; display: inline-block; }
+  h1 .hl::after { content: ""; position: absolute; left: -2%; right: -2%; bottom: .08em; height: .28em; background: var(--yellow); border-radius: 8px; z-index: -1; transform: rotate(-1.5deg); }
+  .lead { margin-top: 20px; font-size: 1.15rem; color: var(--muted); max-width: 520px; }
+  .cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; background: var(--violet); color: var(--white); font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05rem; padding: 14px 24px; border: 2.5px solid var(--ink); border-radius: 16px; box-shadow: 5px 5px 0 var(--ink); text-decoration: none; transition: transform .15s, box-shadow .15s; }
+  .cta:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+  .cta:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
+
+  /* cartas flutuantes */
+  .stage { position: relative; height: 380px; }
+  .card { position: absolute; width: 150px; height: 210px; border: 3px solid var(--ink); border-radius: 16px; box-shadow: 6px 6px 0 var(--ink); background: var(--white); padding: 10px; display: flex; flex-direction: column; gap: 8px; animation: bob 5s ease-in-out infinite; }
+  .card .art { flex: 1; border-radius: 10px; border: 2px solid var(--ink); }
+  .card .line { height: 10px; border-radius: 6px; background: #ece6f5; }
+  .card .line.s { width: 60%; }
+  .c1 { left: 6%; top: 60px; --r: -14deg; transform: rotate(var(--r)); animation-delay: 0s; }
+  .c1 .art { background: linear-gradient(135deg, var(--pink), var(--orange)); }
+  .c2 { left: 34%; top: 10px; --r: 4deg; transform: rotate(var(--r)); animation-delay: -1.6s; z-index: 2; }
+  .c2 .art { background: linear-gradient(135deg, var(--violet), var(--sky)); }
+  .c3 { left: 60%; top: 90px; --r: 16deg; transform: rotate(var(--r)); animation-delay: -3.2s; }
+  .c3 .art { background: linear-gradient(135deg, var(--mint), var(--yellow)); }
+  @keyframes bob { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-14px); } }
+  .scanline { position: absolute; left: 30%; top: 10px; width: 170px; height: 4px; background: var(--mint); border-radius: 4px; box-shadow: 0 0 14px var(--mint); z-index: 3; animation: scan 2.6s ease-in-out infinite; }
+  @keyframes scan { 0%,100% { top: 24px; } 50% { top: 210px; } }
+  .spark { position: absolute; font-size: 1.6rem; animation: twinkle 2.4s ease-in-out infinite; }
+  .s1 { left: 0; top: 10px; color: var(--yellow); }
+  .s2 { right: 2%; top: 20px; color: var(--pink); animation-delay: -.8s; }
+  .s3 { left: 28%; bottom: 20px; color: var(--violet); animation-delay: -1.6s; }
+  @keyframes twinkle { 0%,100% { transform: scale(.7) rotate(0); opacity: .5; } 50% { transform: scale(1.15) rotate(20deg); opacity: 1; } }
+
+  .section-title { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.2rem); text-align: center; margin-bottom: 28px; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; padding-bottom: 72px; }
+  .feat { background: var(--white); border: 2.5px solid var(--ink); border-radius: 22px; padding: 26px; box-shadow: 5px 5px 0 var(--ink); transition: transform .2s; }
+  .feat:nth-child(1):hover { transform: rotate(-2deg) translateY(-4px); }
+  .feat:nth-child(2):hover { transform: rotate(2deg) translateY(-4px); }
+  .feat:nth-child(3):hover { transform: rotate(-2deg) translateY(-4px); }
+  .icon { width: 58px; height: 58px; border-radius: 16px; border: 2.5px solid var(--ink); display: grid; place-items: center; margin-bottom: 16px; }
+  .icon svg { width: 28px; height: 28px; }
+  .i1 { background: var(--pink); } .i2 { background: var(--sky); } .i3 { background: var(--mint); }
+  .feat h3 { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; margin-bottom: 6px; }
+  .feat p { color: var(--muted); }
+
+  .contact { position: relative; text-align: center; background: var(--violet); color: var(--white); border: 3px solid var(--ink); border-radius: 28px; box-shadow: 8px 8px 0 var(--ink); padding: 48px 24px; margin-bottom: 72px; overflow: hidden; }
+  .contact::before, .contact::after { content: "✦"; position: absolute; font-size: 3rem; color: var(--yellow); opacity: .9; }
+  .contact::before { top: 14px; left: 22px; transform: rotate(-15deg); }
+  .contact::after { bottom: 10px; right: 26px; color: var(--pink); }
+  .contact h2 { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 8px; }
+  .contact p { opacity: .9; font-size: 1.05rem; }
+  .contact a { display: inline-block; margin-top: 22px; background: var(--yellow); color: var(--ink); font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05rem; padding: 13px 24px; border: 2.5px solid var(--ink); border-radius: 16px; box-shadow: 4px 4px 0 var(--ink); text-decoration: none; word-break: break-all; transition: transform .15s, box-shadow .15s; }
+  .contact a:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+
+  footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 0 0 40px; }
+  footer p + p { margin-top: 8px; font-size: .78rem; opacity: .85; }
+
+  [data-en] { display: none; }
+  html[lang="en"] [data-pt] { display: none; }
+  html[lang="en"] [data-en] { display: revert; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; text-align: center; padding-top: 24px; }
+    .lead { margin-left: auto; margin-right: auto; }
+    .stage { height: 300px; max-width: 360px; margin: 0 auto; width: 100%; }
+    .card { width: 120px; height: 170px; }
+    .scanline { width: 140px; }
+    @keyframes scan { 0%,100% { top: 24px; } 50% { top: 170px; } }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#7c5cff" stroke="#2b2140" stroke-width="3"/><rect x="20" y="13" width="24" height="36" rx="5" fill="#fff" stroke="#2b2140" stroke-width="2.5" transform="rotate(-8 32 31)"/><circle cx="47" cy="16" r="7" fill="#ffc94d" stroke="#2b2140" stroke-width="2.5"/></svg>
+      Arcane Scanner
+    </a>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button id="btn-pt" class="on" onclick="setLang('pt-BR')">PT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="badge"><span class="tool">🛠️</span><span data-pt>Site em construção</span><span data-en>Under construction</span></div>
+      <h1 data-pt>Sua coleção, <span class="hl">num piscar</span> de olhos!</h1>
+      <h1 data-en>Your collection, <span class="hl">in a blink</span>!</h1>
+      <p class="lead" data-pt>Estamos preparando o site do Arcane Scanner, o app que escaneia e organiza suas cartas de Magic: The Gathering direto pela câmera do celular. Logo, logo no Google Play!</p>
+      <p class="lead" data-en>We're building the website for Arcane Scanner, the app that scans and organizes your Magic: The Gathering cards straight from your phone's camera. Coming very soon to Google Play!</p>
+      <a class="cta" href="#contato"><span data-pt>Quero saber do lançamento</span><span data-en>Tell me when it launches</span> →</a>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <span class="spark s1">✦</span><span class="spark s2">✦</span><span class="spark s3">✦</span>
+      <div class="card c1"><div class="art"></div><div class="line"></div><div class="line s"></div></div>
+      <div class="card c2"><div class="art"></div><div class="line"></div><div class="line s"></div></div>
+      <div class="card c3"><div class="art"></div><div class="line"></div><div class="line s"></div></div>
+      <div class="scanline"></div>
+    </div>
+  </section>
+
+  <h2 class="section-title" data-pt>O que vem por aí ✨</h2>
+  <h2 class="section-title" data-en>What's coming ✨</h2>
+  <section class="features">
+    <div class="feat">
+      <div class="icon i1"><svg viewBox="0 0 24 24" fill="none" stroke="#2b2140" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div>
+      <h3 data-pt>Aponte e pronto!</h3><h3 data-en>Point and done!</h3>
+      <p data-pt>Mire a câmera na carta e o app descobre a edição, o número e até se ela é foil.</p>
+      <p data-en>Aim your camera at a card and the app figures out the set, number and even if it's foil.</p>
+    </div>
+    <div class="feat">
+      <div class="icon i2"><svg viewBox="0 0 24 24" fill="none" stroke="#2b2140" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="9" rx="1.5"/><rect x="14" y="4" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="18" height="4" rx="1.5"/></svg></div>
+      <h3 data-pt>Uma pilha de uma vez</h3><h3 data-en>A whole stack at once</h3>
+      <p data-pt>Passe carta atrás de carta sem parar e revise tudo no final, com calma.</p>
+      <p data-en>Scan card after card without stopping and review everything at the end.</p>
+    </div>
+    <div class="feat">
+      <div class="icon i3"><svg viewBox="0 0 24 24" fill="none" stroke="#2b2140" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+      <h3 data-pt>Tudo arrumadinho</h3><h3 data-en>Neat and tidy</h3>
+      <p data-pt>Agrupe, organize e exporte sua coleção em CSV ou JSON. Fica tudo salvo no seu celular.</p>
+      <p data-en>Group, organize and export your collection as CSV or JSON. It all stays on your phone.</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <h2 data-pt>Bora conversar? 💌</h2><h2 data-en>Let's talk! 💌</h2>
+    <p data-pt>Dúvidas, ideias ou vontade de testar o app antes de todo mundo?</p>
+    <p data-en>Questions, ideas, or want to try the app before everyone else?</p>
+    <a href="mailto:suporte@arcanescanner.com">suporte@arcanescanner.com</a>
+  </section>
+
+  <footer>
+    <p>© <span id="year">2026</span> Arcane Scanner · <a href="/privacidade/" style="color:inherit;font-weight:700"><span data-pt>Política de Privacidade</span><span data-en>Privacy Policy</span></a></p>
+    <p data-pt>O Arcane Scanner é um aplicativo independente e não é afiliado, endossado ou patrocinado pela Wizards of the Coast. Magic: The Gathering é marca registrada da Wizards of the Coast LLC.</p>
+    <p data-en>Arcane Scanner is an independent app and is not affiliated with, endorsed or sponsored by Wizards of the Coast. Magic: The Gathering is a trademark of Wizards of the Coast LLC.</p>
+  </footer>
+</div>
+
+<script>
+  function setLang(l) {
+    document.documentElement.lang = l;
+    document.getElementById('btn-pt').classList.toggle('on', l === 'pt-BR');
+    document.getElementById('btn-en').classList.toggle('on', l === 'en');
+    document.title = l === 'en' ? 'Arcane Scanner — Coming soon' : 'Arcane Scanner — Em breve';
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  }
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  if (saved) setLang(saved);
+  else if (!(navigator.language || '').toLowerCase().startsWith('pt')) setLang('en');
+</script>
+</body>
+</html>
